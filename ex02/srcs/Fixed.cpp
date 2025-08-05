@@ -129,40 +129,32 @@ void	Fixed::setRawBits(int const raw)
 
 float	Fixed::toFloat(void) const
 {
-	return ((float)this->_number / (1 << this->_decimal_bits));
+	return (static_cast<float>(this->_number) / (1 << this->_decimal_bits));
 }
 
 int	Fixed::toInt(void) const
 {
-	return (this->_number / (1 << this->_decimal_bits));
+	return (this->_number << this->_decimal_bits);
 }
 
 Fixed&	Fixed::min(Fixed &Fixed1, Fixed &Fixed2)
 {
-	if (Fixed1 <= Fixed2)
-		return (Fixed1);
-	return (Fixed2);
+	return (Fixed1 <= Fixed2 ? Fixed1 : Fixed2);
 }
 
 const Fixed&	Fixed::min(const Fixed &Fixed1, const Fixed &Fixed2)
 {
-	if (Fixed1 <= Fixed2)
-		return (Fixed1);
-	return (Fixed2);
+	return (Fixed1 <= Fixed2 ? Fixed1 : Fixed2);
 }
 
 Fixed&	Fixed::max(Fixed &Fixed1, Fixed &Fixed2)
 {
-	if (Fixed1 >= Fixed2)
-		return (Fixed1);
-	return (Fixed2);
+	return (Fixed1 >= Fixed2 ? Fixed1 : Fixed2);
 }
 
 const Fixed&	Fixed::max(const Fixed &Fixed1, const Fixed &Fixed2)
 {
-	if (Fixed1 >= Fixed2)
-		return (Fixed1);
-	return (Fixed2);
+	return (Fixed1>= Fixed2 ? Fixed1 : Fixed2);
 }
 
 std::ostream&	operator<<(std::ostream &stream, const Fixed& fixed)
